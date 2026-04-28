@@ -1,0 +1,1321 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1280" />
+<title>GIDR · 광운대학교 국제개발연구소</title>
+<link rel="icon" type="image/png" href="assets/kw_logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --blue:#1e4d8c;
+    --blue-dark:#003876;
+    --blue-deeper:#001e44;
+    --red:#c8102e;
+    --gold:#d4a14e;
+    --ink:#111418;
+    --grey-900:#1d2024;
+    --grey-800:#2a2e34;
+    --grey-700:#333740;
+    --grey-500:#777a82;
+    --grey-300:#cdd0d6;
+    --grey-200:#e5e7ec;
+    --grey-100:#f1f2f5;
+    --grey-50:#f7f8fa;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#fff;color:var(--ink);font-family:"Noto Sans KR","Inter",sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:0;background:transparent;color:inherit}
+  .container{max-width:1280px;margin:0 auto;padding:0 32px}
+  .en{font-family:"Inter",sans-serif;letter-spacing:-0.01em}
+  .mono{font-family:"JetBrains Mono",monospace}
+
+  /* ========== UTILITY BAR ========== */
+  .util{background:#1d2024;color:#cdd0d6;font-size:12.5px;border-bottom:1px solid #000}
+  .util .container{display:flex;align-items:center;justify-content:space-between;height:36px}
+  .util-left{display:flex;align-items:center;gap:0}
+  .util-left a{padding:0 14px;border-right:1px solid #3a3d44;color:#cdd0d6;line-height:1}
+  .util-left a:first-child{padding-left:0}
+  .util-left a:hover{color:#fff}
+  .util-left a.strong{color:#fff;font-weight:500}
+  .util-right{display:flex;align-items:center;gap:18px}
+  .util-right .lang{display:flex;align-items:center;gap:6px;color:#cdd0d6}
+  .util-right .lang .caret{font-size:9px;opacity:.7}
+  .util-right .search{width:22px;height:22px;display:grid;place-items:center;border-radius:50%;border:1px solid #4a4d54}
+  .util-right .search:hover{border-color:#fff;color:#fff}
+  .util-right .disclaimer{color:#878a92;font-size:11.5px;max-width:280px;line-height:1.4}
+
+  /* ========== HEADER ========== */
+  .header{background:#fff;border-bottom:1px solid var(--grey-200);height:84px}
+  .header .container{height:100%;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand-mark{width:50px;height:50px;display:block;flex-shrink:0}
+  .brand-kw{width:42px;height:42px;display:block;flex-shrink:0;object-fit:contain}
+  .brand-divider{width:1px;height:32px;background:var(--grey-200);flex-shrink:0}
+  .brand-text{display:flex;flex-direction:column;line-height:1.15}
+  .brand-text .ko{font-weight:700;font-size:16px;color:var(--ink);letter-spacing:-0.02em}
+  .brand-text .en{font-size:11px;color:var(--grey-500);font-weight:400;margin-top:2px;letter-spacing:0}
+
+  .nav{display:flex;align-items:center;gap:0}
+  .nav a{
+    padding:0 26px;height:84px;display:flex;align-items:center;
+    font-size:16px;font-weight:500;color:var(--ink);
+    border-bottom:3px solid transparent;
+    transition:color .15s, border-color .15s;
+    letter-spacing:-0.01em;
+  }
+  .nav a:hover{color:var(--blue-dark);border-bottom-color:var(--blue-dark)}
+  .nav a.accent{color:var(--red);font-weight:700}
+  .nav a.accent:hover{border-bottom-color:var(--red)}
+  .nav a .sub{display:block;font-size:10px;color:var(--grey-500);font-family:"Inter",sans-serif;font-weight:400;margin-top:2px;letter-spacing:.02em;text-transform:uppercase}
+  .nav a{flex-direction:column;justify-content:center;align-items:center;gap:0}
+
+  /* ========== HERO ========== */
+  .hero{
+    position:relative;height:620px;overflow:hidden;
+    background:#003876;
+    color:#fff;
+  }
+  .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .hero-overlay{
+    position:absolute;inset:0;z-index:1;
+    background:
+      linear-gradient(180deg, rgba(12,30,62,0.45) 0%, rgba(12,30,62,0.65) 100%),
+      radial-gradient(ellipse at 30% 50%, rgba(0,30,68,0.35) 0%, transparent 60%);
+  }
+  .hero-net{position:absolute;inset:0;width:100%;height:100%;opacity:.35;pointer-events:none;z-index:2;mix-blend-mode:screen}
+  .hero .container{position:relative;height:100%;display:grid;grid-template-columns:1fr;align-items:center;z-index:3}
+  .hero-slide{display:none;animation:fadeIn .6s ease both}
+  .hero-slide.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:"Inter",sans-serif;font-size:12px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:24px;
+    text-shadow:0 1px 8px rgba(0,0,0,.4);
+  }
+  .hero-eyebrow::before{content:"";width:28px;height:1px;background:var(--gold)}
+  .hero-title{
+    font-size:48px;font-weight:700;letter-spacing:-0.035em;
+    line-height:1.2;margin:0 0 22px;max-width:820px;color:#fff;
+    text-shadow:0 2px 32px rgba(0,0,0,.55), 0 1px 4px rgba(0,0,0,.4);
+  }
+  .hero-title em{font-style:normal;color:var(--gold)}
+  .hero-sub{
+    font-family:"Inter",sans-serif;font-weight:300;
+    font-size:22px;color:rgba(255,255,255,.92);
+    letter-spacing:-0.01em;max-width:740px;line-height:1.5;
+    text-shadow:0 1px 16px rgba(0,0,0,.5);
+  }
+  .hero-meta{margin-top:32px;display:flex;gap:36px;color:rgba(255,255,255,.85);font-size:13px;font-family:"Inter",sans-serif;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+  .hero-meta .k{color:var(--gold);font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:5px;font-weight:600;opacity:.9}
+  .hero-meta .v{color:#fff;font-weight:500;font-size:14.5px}
+
+  .hero-controls{
+    position:absolute;right:32px;top:32px;z-index:4;
+    display:flex;align-items:center;gap:6px;
+    background:rgba(0,0,0,.35);backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.22);border-radius:999px;
+    padding:6px 8px 6px 18px;
+  }
+  .hero-controls-bottom{
+    position:absolute;right:32px;bottom:32px;z-index:4;
+    display:flex;align-items:center;gap:6px;
+    background:rgba(0,0,0,.25);backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,.18);border-radius:999px;
+    padding:6px 8px 6px 18px;
+  }
+  .hero-controls .count, .hero-controls-bottom .count{font-family:"Inter",sans-serif;font-size:13px;color:#fff;font-weight:500;margin-right:14px;letter-spacing:.04em}
+  .hero-controls .count .total, .hero-controls-bottom .count .total{color:rgba(255,255,255,.5)}
+  .hero-controls button, .hero-controls-bottom button{
+    width:32px;height:32px;border-radius:50%;
+    background:rgba(255,255,255,.12);color:#fff;
+    display:grid;place-items:center;
+    transition:background .15s;
+  }
+  .hero-controls button:hover, .hero-controls-bottom button:hover{background:rgba(255,255,255,.32)}
+  .hero-controls svg, .hero-controls-bottom svg{width:12px;height:12px}
+  .hero-dots{position:absolute;left:32px;bottom:38px;z-index:4;display:flex;gap:10px}
+  .hero-dots .d{width:32px;height:2px;background:rgba(255,255,255,.35);transition:background .2s}
+  .hero-dots .d.active{background:var(--gold)}
+
+  /* ========== NEWS RIBBON ========== */
+  .news-ribbon{background:#fff;border-bottom:1px solid var(--grey-200)}
+  .news-ribbon .container{display:flex;align-items:center;height:64px;gap:32px}
+  .news-ribbon .label{
+    display:flex;align-items:center;gap:10px;flex-shrink:0;
+    color:var(--blue-dark);font-weight:700;font-size:14px;letter-spacing:-0.01em;
+  }
+  .news-ribbon .label .dot{width:6px;height:6px;border-radius:50%;background:var(--red)}
+  .news-ribbon .latest{
+    flex:1;display:flex;align-items:center;gap:18px;
+    font-size:14.5px;color:var(--ink);overflow:hidden;
+  }
+  .news-ribbon .date{color:var(--grey-500);font-family:"Inter",sans-serif;font-size:13px;flex-shrink:0}
+  .news-ribbon .latest a{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:-0.01em}
+  .news-ribbon .latest a:hover{color:var(--blue-dark)}
+  .news-ribbon .pager{display:flex;gap:1px;border:1px solid var(--grey-200);border-radius:4px;overflow:hidden;flex-shrink:0}
+  .news-ribbon .pager button{width:28px;height:28px;background:#fff;color:var(--grey-700);display:grid;place-items:center}
+  .news-ribbon .pager button:hover{background:var(--grey-100)}
+  .news-ribbon .pager svg{width:10px;height:10px}
+
+  /* ========== TAG SECTION (KOICA / ODA / GLOBAL) ========== */
+  .tags{padding:80px 0 40px;background:#fff}
+  .tags .container{display:grid;grid-template-columns:280px 1fr;gap:64px;align-items:start}
+  .tags-side h3{
+    font-size:28px;font-weight:800;letter-spacing:-0.03em;margin:0 0 4px;color:var(--ink);
+  }
+  .tags-side .h3en{font-family:"Inter",sans-serif;font-size:13px;color:var(--grey-500);font-weight:400;letter-spacing:0;margin-bottom:28px}
+  .tag-list{display:flex;flex-direction:column;gap:2px}
+  .tag-item{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 0;border-bottom:1px solid var(--grey-200);
+    cursor:pointer;transition:padding-left .2s, color .2s;
+    font-family:"Inter",sans-serif;font-size:18px;font-weight:600;color:var(--grey-500);
+  }
+  .tag-item:hover{padding-left:8px;color:var(--ink)}
+  .tag-item.active{color:var(--blue-dark);padding-left:8px}
+  .tag-item .arrow{font-size:14px;opacity:.5}
+  .tag-item.active .arrow{opacity:1;color:var(--red)}
+  .tag-item .hash{color:var(--red);margin-right:2px}
+
+  .tag-items{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 32px}
+  .news-card{display:block;cursor:pointer;transition:transform .25s}
+  .news-card:hover{transform:translateY(-3px)}
+  .news-card .thumb{
+    width:100%;aspect-ratio:16/9;background:var(--grey-100);
+    position:relative;overflow:hidden;margin-bottom:14px;
+  }
+  .news-card .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+  .news-card:hover .thumb img{transform:scale(1.04)}
+  .news-card .thumb-overlay{position:absolute;inset:0;background:linear-gradient(180deg, transparent 50%, rgba(0,30,68,.55) 100%);display:flex;flex-direction:column;justify-content:space-between;padding:14px;color:#fff;pointer-events:none}
+  .news-card .thumb-tag-on-img{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;align-self:flex-start;background:rgba(0,30,68,.85);color:#fff;padding:4px 9px;border-radius:2px;font-weight:500}
+  .news-card .thumb-art{
+    position:absolute;inset:0;
+    background:
+      repeating-linear-gradient(135deg, transparent 0 14px, rgba(0,0,0,.04) 14px 15px),
+      linear-gradient(135deg, #1e4d8c 0%, #003876 100%);
+    color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:16px;
+  }
+  .news-card .thumb-art.alt{background:
+      repeating-linear-gradient(135deg, transparent 0 14px, rgba(0,0,0,.04) 14px 15px),
+      linear-gradient(135deg, #2a6bb8 0%, #1e4d8c 100%)}
+  .news-card .thumb-art.warm{background:
+      repeating-linear-gradient(135deg, transparent 0 14px, rgba(0,0,0,.04) 14px 15px),
+      linear-gradient(135deg, #c8102e 0%, #7d0c1d 100%)}
+  .news-card .thumb-art.neutral{background:
+      repeating-linear-gradient(135deg, transparent 0 14px, rgba(0,0,0,.04) 14px 15px),
+      linear-gradient(135deg, #444 0%, #1d2024 100%)}
+  .news-card .thumb-tag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;align-self:flex-start;border:1px solid rgba(255,255,255,.4);padding:3px 8px;border-radius:2px}
+  .news-card .thumb-mark{font-family:"Inter",sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.04em;align-self:flex-end;opacity:.85}
+  .news-card .meta{display:flex;align-items:center;gap:10px;font-family:"Inter",sans-serif;font-size:11px;color:var(--grey-500);letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+  .news-card .meta .pill{background:var(--grey-100);color:var(--blue-dark);padding:3px 8px;border-radius:2px;font-weight:600}
+  .news-card .title{font-size:15px;font-weight:600;color:var(--ink);line-height:1.45;letter-spacing:-0.015em}
+  .news-card:hover .title{color:var(--blue-dark)}
+
+  /* ========== ABOUT BANNER ========== */
+  .about{padding:80px 0;background:#fff;border-top:1px solid var(--grey-200)}
+  .about .container{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .about h3{font-size:32px;font-weight:800;letter-spacing:-0.03em;margin:0 0 6px}
+  .about .h3en{font-family:"Inter",sans-serif;font-size:13px;color:var(--grey-500);margin-bottom:24px}
+  .about p{font-size:15px;line-height:1.75;color:var(--grey-700);margin:0 0 16px;letter-spacing:-0.01em}
+  .about .pillars{display:flex;gap:14px;margin-top:24px;flex-wrap:wrap}
+  .about .pill{padding:8px 14px;border:1px solid var(--blue-dark);color:var(--blue-dark);font-size:12.5px;font-weight:600;border-radius:2px}
+  .about .pill.red{border-color:var(--red);color:var(--red)}
+  .about .pill.gold{border-color:var(--gold);color:#a87a2e;background:rgba(212,161,78,.08)}
+  .about-banner{position:relative;aspect-ratio:16/10;overflow:hidden;border:1px solid var(--grey-200)}
+  .about-banner img{width:100%;height:100%;object-fit:cover;display:block}
+  .about-banner .badge{
+    position:absolute;left:20px;top:20px;
+    background:rgba(0,30,68,.92);color:#fff;
+    padding:14px 18px;font-family:"Inter",sans-serif;
+    border-left:3px solid var(--gold);
+  }
+  .about-banner .badge .k{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;font-weight:600}
+  .about-banner .badge .v{font-size:14px;font-weight:600;color:#fff;font-family:"Noto Sans KR",sans-serif}
+  .about-banner .caption{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:18px 22px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.85));
+    color:#fff;font-family:"Noto Sans KR",sans-serif;
+  }
+  .about-banner .caption .ko{font-size:14px;font-weight:600}
+  .about-banner .caption .en{font-family:"Inter",sans-serif;font-size:11px;color:rgba(255,255,255,.75);margin-top:3px;letter-spacing:.04em}
+
+  /* ========== COOPERATION BG SECTION ========== */
+  .coop{position:relative;padding:120px 0;color:#fff;overflow:hidden;border-top:1px solid var(--grey-200)}
+  .coop-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .coop-veil{position:absolute;inset:0;z-index:1;background:linear-gradient(110deg, rgba(0,30,68,.94) 0%, rgba(0,56,118,.85) 50%, rgba(0,30,68,.7) 100%)}
+  .coop .container{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}
+  .coop h3{font-size:40px;font-weight:800;letter-spacing:-0.03em;margin:0 0 8px;color:#fff}
+  .coop .h3en{font-family:"Inter",sans-serif;font-size:13px;color:var(--gold);letter-spacing:.16em;text-transform:uppercase;margin-bottom:24px;font-weight:600}
+  .coop p{font-size:16px;line-height:1.75;color:rgba(255,255,255,.88);margin:0 0 18px}
+  .coop .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px;padding-top:32px;border-top:1px solid rgba(255,255,255,.18)}
+  .coop .stat .num{font-family:"Inter",sans-serif;font-weight:800;font-size:42px;letter-spacing:-0.04em;color:var(--gold);line-height:1}
+  .coop .stat .lab{font-size:12px;color:rgba(255,255,255,.7);margin-top:8px;letter-spacing:.06em}
+  .coop-card{background:rgba(255,255,255,.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.18);padding:32px}
+  .coop-card h4{font-size:18px;font-weight:700;margin:0 0 18px;color:#fff;letter-spacing:-0.015em}
+  .coop-card ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px}
+  .coop-card li{display:flex;align-items:start;gap:14px;font-size:14px;line-height:1.55;color:rgba(255,255,255,.92)}
+  .coop-card li::before{content:"";flex-shrink:0;width:6px;height:6px;background:var(--gold);margin-top:8px;transform:rotate(45deg)}
+  .coop-card li b{color:#fff;font-weight:600;display:block;margin-bottom:2px}
+  .coop-card li span{font-family:"Inter",sans-serif;font-size:11.5px;color:rgba(255,255,255,.6);letter-spacing:.04em}
+
+  /* ========== HIGHLIGHT SLIDER (projects) ========== */
+  .highlights{padding:80px 0;background:var(--grey-50);border-top:1px solid var(--grey-200)}
+  .highlights .head{display:flex;align-items:end;justify-content:space-between;margin-bottom:36px}
+  .highlights h3{font-size:32px;font-weight:800;letter-spacing:-0.03em;margin:0;color:var(--ink)}
+  .highlights .h3en{font-family:"Inter",sans-serif;font-size:13px;color:var(--grey-500);font-weight:400;letter-spacing:0;margin-top:6px}
+  .hl-controls{display:flex;gap:8px}
+  .hl-controls button{width:40px;height:40px;border:1px solid var(--grey-300);background:#fff;border-radius:50%;display:grid;place-items:center;color:var(--grey-700)}
+  .hl-controls button:hover{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark)}
+  .hl-track{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;transition:transform .4s ease}
+  .hl-card{background:#fff;border:1px solid var(--grey-200);overflow:hidden;display:flex;flex-direction:column}
+  .hl-card .thumb{aspect-ratio:4/3;position:relative;overflow:hidden}
+  .hl-card .body{padding:28px}
+  .hl-card .country{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--red);letter-spacing:.16em;text-transform:uppercase;font-weight:500;margin-bottom:12px}
+  .hl-card .title{font-size:20px;font-weight:700;letter-spacing:-0.02em;color:var(--ink);line-height:1.35;margin-bottom:10px}
+  .hl-card .desc{font-size:13.5px;color:var(--grey-700);line-height:1.6;margin-bottom:20px}
+  .hl-card .footer{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--grey-200);font-family:"Inter",sans-serif;font-size:12px;color:var(--grey-500)}
+  .hl-card .footer .more{color:var(--blue-dark);font-weight:600}
+
+  /* ========== SERVICE GRID ========== */
+  .services{padding:80px 0;background:#fff;border-top:1px solid var(--grey-200)}
+  .services .head{display:flex;align-items:end;justify-content:space-between;margin-bottom:48px}
+  .services h3{font-size:32px;font-weight:800;letter-spacing:-0.03em;margin:0}
+  .services .h3en{font-family:"Inter",sans-serif;font-size:13px;color:var(--grey-500);margin-top:6px}
+  .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);border-top:1px solid var(--grey-200);border-left:1px solid var(--grey-200)}
+  .svc{
+    border-right:1px solid var(--grey-200);border-bottom:1px solid var(--grey-200);
+    padding:28px 24px;display:flex;flex-direction:column;gap:18px;
+    cursor:pointer;transition:background .2s, color .2s;position:relative;
+    min-height:160px;text-decoration:none;color:var(--ink);
+  }
+  .svc:hover{background:var(--blue-dark);color:#fff}
+  .svc:hover .svc-num,.svc:hover .svc-en{color:rgba(255,255,255,.7)}
+  .svc:hover .svc-icon{stroke:#fff}
+  .svc:hover .svc-arrow{opacity:1;transform:translate(2px,-2px)}
+  .svc-top{display:flex;align-items:start;justify-content:space-between}
+  .svc-num{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--grey-500);letter-spacing:.1em}
+  .svc-arrow{opacity:.3;transition:opacity .2s, transform .2s;color:inherit}
+  .svc-icon{width:32px;height:32px;stroke:var(--blue-dark);stroke-width:1.4;fill:none;transition:stroke .2s}
+  .svc-label{font-size:15px;font-weight:600;letter-spacing:-0.015em;line-height:1.35}
+  .svc-en{font-family:"Inter",sans-serif;font-size:11px;color:var(--grey-500);font-weight:400;margin-top:auto;letter-spacing:0}
+
+  /* ========== CONTACT (DIRECTOR CARD) ========== */
+  .contact{padding:140px 0 120px;background:var(--ink);color:#fff;position:relative;overflow:hidden}
+  .contact::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(ellipse at 20% 0%, rgba(30,77,140,.28), transparent 55%),
+    radial-gradient(ellipse at 100% 100%, rgba(200,16,46,.12), transparent 50%);
+    pointer-events:none}
+  .contact .container{position:relative;z-index:1}
+
+  /* eyebrow */
+  .ct-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:48px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.22em;color:rgba(255,255,255,.45);text-transform:uppercase}
+  .ct-eyebrow::before{content:"";width:48px;height:1px;background:#c8102e}
+
+  /* Hero email row */
+  .ct-hero{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .ct-mailto{display:block;text-decoration:none;color:#fff;line-height:1}
+  .ct-mailto .lab{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.22em;color:#c8102e;text-transform:uppercase;margin-bottom:14px}
+  .ct-mailto .addr{font-family:"Inter",sans-serif;font-size:84px;font-weight:300;letter-spacing:-0.045em;line-height:1;display:flex;align-items:baseline;gap:24px}
+  .ct-mailto .arrow{font-size:54px;font-weight:200;color:#c8102e;transition:transform .3s, color .3s;display:inline-block}
+  .ct-mailto:hover .arrow{transform:translate(8px,-8px);color:#fff}
+  .ct-mailto .note{font-size:13px;color:rgba(255,255,255,.55);margin-top:18px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+  .ct-mailto .note .dot{width:7px;height:7px;background:#3ad07a;border-radius:50%;display:inline-block;animation:pulse 2.4s infinite}
+
+  .ct-meta-stack{display:flex;flex-direction:column;align-items:end;gap:14px;text-align:right}
+  .ct-meta-stack .stamp{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.18em;color:#c8102e;border:1px solid rgba(200,16,46,.5);padding:5px 10px;text-transform:uppercase}
+  .ct-meta-stack .ts{font-family:"Inter",sans-serif;font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.04em}
+
+  /* Director identity strip */
+  .ct-id{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center;padding:40px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+  .ct-id-name{display:flex;align-items:baseline;gap:18px}
+  .ct-id-name .ko{font-size:32px;font-weight:700;letter-spacing:-0.03em}
+  .ct-id-name .en{font-family:"Inter",sans-serif;font-size:14px;color:rgba(255,255,255,.55);letter-spacing:.02em}
+  .ct-id-name .role{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.18em;color:#c8102e;border-left:1px solid rgba(255,255,255,.2);padding-left:14px;text-transform:uppercase}
+  .ct-id-titles{font-family:"Inter",sans-serif;font-size:13px;color:rgba(255,255,255,.6);letter-spacing:.01em;line-height:1.6;text-align:right;max-width:560px}
+
+  /* Three-up purpose channels */
+  .ct-channels{display:grid;grid-template-columns:repeat(3,1fr);margin-top:48px;border-top:1px solid rgba(255,255,255,.06)}
+  .ct-channel{padding:36px 32px 36px 0;text-decoration:none;color:#fff;display:flex;flex-direction:column;gap:14px;transition:padding .25s;border-right:1px solid rgba(255,255,255,.06);position:relative}
+  .ct-channel:last-child{border-right:0}
+  .ct-channel + .ct-channel{padding-left:32px}
+  .ct-channel:hover{padding-left:40px}
+  .ct-channel + .ct-channel:hover{padding-left:40px}
+  .ct-channel .num{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.2em;color:rgba(255,255,255,.4);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+  .ct-channel .num .arr{color:rgba(255,255,255,.3);font-size:14px;transition:color .25s, transform .25s}
+  .ct-channel:hover .num .arr{color:#c8102e;transform:translateX(4px)}
+  .ct-channel .ch-title{font-size:22px;font-weight:600;letter-spacing:-0.02em;line-height:1.2}
+  .ct-channel .ch-en{font-family:"Inter",sans-serif;font-size:12px;color:rgba(255,255,255,.45);letter-spacing:.02em;margin-top:-4px}
+  .ct-channel .ch-desc{font-size:12.5px;color:rgba(255,255,255,.55);line-height:1.55}
+
+  /* tel + address footer */
+  .ct-tail{display:flex;justify-content:space-between;align-items:center;margin-top:48px;padding-top:24px;border-top:1px solid rgba(255,255,255,.06);font-family:"Inter",sans-serif;font-size:12.5px;color:rgba(255,255,255,.55);letter-spacing:.02em;flex-wrap:wrap;gap:16px}
+  .ct-tail .it{display:flex;gap:10px;align-items:center}
+  .ct-tail .it .k{font-family:"JetBrains Mono",monospace;font-size:9.5px;color:#c8102e;letter-spacing:.18em;text-transform:uppercase}
+  .ct-tail .it .v{color:#fff;font-weight:500}
+  .ct-tail a{color:#fff;text-decoration:none}
+  .ct-tail a:hover{color:#c8102e}
+
+  /* ========== CONTACT MODAL ========== */
+  .ctmod{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;
+    background:rgba(15,17,21,.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    padding:24px;animation:ctFadeIn .25s ease both}
+  .ctmod.open{display:flex}
+  @keyframes ctFadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes ctSlideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  .ctmod-card{background:#fff;width:100%;max-width:640px;max-height:calc(100vh - 48px);overflow:auto;
+    box-shadow:0 30px 80px rgba(0,0,0,.4);position:relative;animation:ctSlideIn .35s cubic-bezier(.2,.8,.2,1) both}
+  .ctmod-head{padding:28px 32px 18px;border-bottom:1px solid var(--grey-200);position:sticky;top:0;background:#fff;z-index:1}
+  .ctmod-eyebrow{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.2em;color:#c8102e;text-transform:uppercase;margin-bottom:10px}
+  .ctmod-title{font-size:24px;font-weight:800;letter-spacing:-0.025em;line-height:1.2;color:var(--ink);margin:0}
+  .ctmod-sub{font-size:13px;color:var(--grey-500);margin-top:6px;line-height:1.5}
+  .ctmod-close{position:absolute;top:18px;right:20px;width:36px;height:36px;border-radius:50%;
+    border:1px solid var(--grey-200);background:#fff;display:grid;place-items:center;color:var(--grey-700);
+    transition:background .15s, color .15s, border-color .15s}
+  .ctmod-close:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+  .ctmod-body{padding:24px 32px 28px;display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+  .ctmod-row.full{grid-column:1/-1}
+  .ctmod-label{font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.06em;font-weight:600;
+    color:var(--grey-700);text-transform:uppercase;display:block;margin-bottom:6px}
+  .ctmod-label .req{color:#c8102e;margin-left:3px}
+  .ctmod-input,.ctmod-textarea,.ctmod-select{
+    width:100%;border:1px solid var(--grey-200);background:#fff;padding:12px 14px;
+    font-family:"Inter","Pretendard",sans-serif;font-size:14px;color:var(--ink);
+    transition:border-color .15s, box-shadow .15s;border-radius:0;
+  }
+  .ctmod-input:focus,.ctmod-textarea:focus,.ctmod-select:focus{outline:none;border-color:var(--blue-dark);box-shadow:0 0 0 3px rgba(0,56,118,.12)}
+  .ctmod-textarea{resize:vertical;min-height:128px;font-family:inherit;line-height:1.55}
+  .ctmod-select{appearance:none;-webkit-appearance:none;
+    background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1l5 5 5-5' stroke='%231d2024' stroke-width='1.5'/></svg>") right 14px center / 12px no-repeat;
+    padding-right:40px;cursor:pointer}
+
+  .ctmod-foot{padding:18px 32px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+    border-top:1px solid var(--grey-200);background:var(--grey-50);flex-wrap:wrap}
+  .ctmod-meta{font-size:11.5px;color:var(--grey-500);line-height:1.5;flex:1;min-width:180px}
+  .ctmod-meta b{color:var(--ink);font-weight:600}
+  .ctmod-actions{display:flex;gap:10px}
+  .ctmod-btn{padding:13px 22px;font-family:"Inter","Pretendard",sans-serif;font-size:13.5px;font-weight:600;
+    letter-spacing:.01em;border:1px solid transparent;cursor:pointer;transition:background .15s, color .15s, border-color .15s;
+    display:inline-flex;align-items:center;gap:8px}
+  .ctmod-btn.primary{background:#c8102e;color:#fff}
+  .ctmod-btn.primary:hover{background:#a00d24}
+  .ctmod-btn.ghost{background:#fff;color:var(--ink);border-color:var(--grey-300)}
+  .ctmod-btn.ghost:hover{border-color:var(--ink)}
+
+  /* SNS ========== */
+  .sns{padding:60px 0;background:var(--grey-50);border-top:1px solid var(--grey-200)}
+  .sns .container{display:flex;align-items:center;justify-content:center;gap:56px;flex-wrap:wrap}
+  .sns-item{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--grey-700);transition:color .2s}
+  .sns-item:hover{color:var(--blue-dark)}
+  .sns-item .icon{width:52px;height:52px;border-radius:50%;background:#fff;border:1px solid var(--grey-200);display:grid;place-items:center;transition:border-color .2s, background .2s}
+  .sns-item:hover .icon{border-color:var(--blue-dark);background:var(--blue-dark);color:#fff}
+  .sns-item .icon svg{width:22px;height:22px}
+  .sns-item .lab{font-family:"Inter",sans-serif;font-size:12px;font-weight:500;letter-spacing:.02em}
+  .sns-qr{display:flex;align-items:center;gap:14px;padding-left:48px;border-left:1px solid var(--grey-200);margin-left:8px}
+  .sns-qr .qr{width:64px;height:64px;background:
+    linear-gradient(45deg, #000 25%, transparent 25%) 0 0/8px 8px,
+    linear-gradient(-45deg, #000 25%, transparent 25%) 0 0/8px 8px,
+    linear-gradient(45deg, transparent 75%, #000 75%) 4px 4px/8px 8px,
+    linear-gradient(-45deg, transparent 75%, #000 75%) 4px 4px/8px 8px,
+    #fff;border:6px solid #fff;outline:1px solid var(--grey-300)}
+  .sns-qr .txt{font-size:12px;color:var(--grey-700);line-height:1.5}
+  .sns-qr .txt b{color:var(--ink);display:block}
+
+  /* ========== FOOTER ========== */
+  footer{background:#1d2024;color:#cdd0d6;padding-top:0}
+  .foot-drop{border-bottom:1px solid #2a2e34}
+  .foot-drop .container{display:flex;align-items:center;justify-content:space-between;height:56px;cursor:pointer}
+  .foot-drop .label{font-weight:500;font-size:14px;color:#fff}
+  .foot-drop .caret{color:#777a82}
+  .foot-mid{padding:24px 0;border-bottom:1px solid #2a2e34}
+  .foot-mid .container{display:flex;gap:0;flex-wrap:wrap}
+  .foot-mid a{padding:0 18px;border-right:1px solid #3a3d44;font-size:12.5px;color:#9da0a8;line-height:1}
+  .foot-mid a:first-child{padding-left:0;color:#fff;font-weight:600}
+  .foot-mid a:last-child{border-right:0}
+  .foot-mid a:hover{color:#fff}
+
+  .foot-main{padding:36px 0 48px}
+  .foot-main .container{display:grid;grid-template-columns:auto 1fr auto;gap:48px;align-items:center}
+  .foot-logo{display:flex;align-items:center;gap:14px}
+  .foot-logo .mark{width:42px;height:42px;border-radius:50%;background:#3a3d44;color:#cdd0d6;display:grid;place-items:center;font-family:"Inter",sans-serif;font-weight:700;font-size:16px;letter-spacing:-0.04em}
+  .foot-logo .kw{width:36px;height:36px;object-fit:contain;opacity:.85;margin-left:6px}
+  .foot-logo .txt .ko{font-size:14px;color:#cdd0d6;font-weight:500}
+  .foot-logo .txt .en{font-family:"Inter",sans-serif;font-size:11px;color:#777a82;margin-top:2px}
+  .foot-info{font-size:12.5px;color:#9da0a8;line-height:1.7}
+  .foot-info .copy{margin-top:6px;font-family:"Inter",sans-serif;font-size:11px;color:#777a82;letter-spacing:.02em}
+  .foot-info .tel{color:#fff;font-weight:600;margin-left:18px;font-family:"Inter",sans-serif}
+  .foot-info .tel + .tel{margin-left:18px}
+  .foot-info .tel a{color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,.35);text-underline-offset:3px;text-decoration-thickness:1px}
+  .foot-info .tel a:hover{text-decoration-color:#fff}
+  .foot-cert{display:flex;align-items:center;gap:12px}
+  .foot-cert .badge{
+    width:64px;height:64px;border-radius:50%;
+    border:2px solid #3a3d44;display:grid;place-items:center;
+    font-family:"Inter",sans-serif;font-size:10px;color:#9da0a8;text-align:center;line-height:1.1;font-weight:700;letter-spacing:.04em;
+  }
+  .foot-cert .badge .small{font-size:7px;font-weight:400;color:#777a82;margin-top:2px;letter-spacing:.06em}
+
+  /* ========== KEYBOARD HINT ========== */
+  .kbd{display:none}
+</style>
+</head>
+<body>
+
+<!-- ========== UTILITY BAR ========== -->
+<div class="util">
+  <div class="container">
+    <div class="util-left">
+      <a href="#" class="strong">GIDR Portal</a>
+      <a href="#">발전기금</a>
+      <a href="#contact" data-ct-open="기타 문의">WEB-MAIL</a>
+      <a href="#">SITEMAP</a>
+      <a href="#">로그인</a>
+    </div>
+    <div class="util-right">
+      <span class="disclaimer">Disclaimer: Bilingual content; refer to Korean source for legal accuracy.</span>
+      <button class="lang" id="langBtn">
+        <span id="langLabel">Select Language</span>
+        <span class="caret">▼</span>
+      </button>
+      <button class="search" aria-label="search">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+  <div class="container">
+    <a href="#" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" aria-label="GIDR Logo">
+        <defs>
+          <linearGradient id="lgShield" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1e4d8c"/>
+            <stop offset="100%" stop-color="#003876"/>
+          </linearGradient>
+        </defs>
+        <circle cx="32" cy="32" r="31" fill="none" stroke="#003876" stroke-width="0.8"/>
+        <circle cx="32" cy="32" r="28" fill="url(#lgShield)"/>
+        <circle cx="32" cy="32" r="24.5" fill="none" stroke="#fff" stroke-width="0.6" stroke-opacity="0.55"/>
+        <path id="lgArcTop" d="M 11 32 A 21 21 0 0 1 53 32" fill="none"/>
+        <text fill="#fff" font-family="Inter, sans-serif" font-size="4.2" font-weight="600" letter-spacing="2.4">
+          <textPath href="#lgArcTop" startOffset="50%" text-anchor="middle">KWANGWOON UNIVERSITY</textPath>
+        </text>
+        <path id="lgArcBot" d="M 13 34 A 19 19 0 0 0 51 34" fill="none"/>
+        <text fill="#fff" font-family="Inter, sans-serif" font-size="3.4" font-weight="500" letter-spacing="1.8" opacity="0.85">
+          <textPath href="#lgArcBot" startOffset="50%" text-anchor="middle">EST · 2024 · GIDR</textPath>
+        </text>
+        <g stroke="#fff" stroke-width="0.6" fill="none" opacity="0.35">
+          <ellipse cx="32" cy="30" rx="11" ry="11"/>
+          <ellipse cx="32" cy="30" rx="11" ry="4.2"/>
+          <ellipse cx="32" cy="30" rx="4.2" ry="11"/>
+          <ellipse cx="32" cy="30" rx="8" ry="11"/>
+        </g>
+        <text x="32" y="36.5" fill="#fff" font-family="Inter, sans-serif" font-size="20" font-weight="800" letter-spacing="-1" text-anchor="middle">G</text>
+        <polygon points="32,5.4 32.7,7.2 34.6,7.2 33.05,8.3 33.6,10.1 32,9 30.4,10.1 30.95,8.3 29.4,7.2 31.3,7.2" fill="#c8102e"/>
+      </svg>
+      <span class="brand-divider"></span>
+      <img class="brand-kw" src="assets/kw_logo.png" alt="광운대학교" />
+      <div class="brand-text">
+        <div class="ko">광운대학교 국제개발연구소</div>
+        <div class="en">Global Institute for Development Research</div>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="#about">연구소<span class="sub">About</span></a>
+      <a href="#people">연구진<span class="sub">People</span></a>
+      <a href="#research">연구분야<span class="sub">Research</span></a>
+      <a href="#projects">사업<span class="sub">Projects</span></a>
+      <a href="#publications">발간물<span class="sub">Publications</span></a>
+      <a href="#cooperation">협력<span class="sub">Cooperation</span></a>
+      <a href="#contact" class="accent" data-ct-open="기타 문의">문의<span class="sub">Contact</span></a>
+    </nav>
+  </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="hero">
+  <video class="hero-video" id="heroVid" autoplay loop muted playsinline preload="auto" poster="assets/01_aerial_hall.jpg">
+    <source src="assets/hero_video.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-overlay"></div>
+  <svg class="hero-net" viewBox="0 0 1280 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#9ec5ff" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#9ec5ff" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <g stroke="rgba(255,255,255,0.18)" stroke-width="0.6" fill="none" id="netLines"></g>
+    <g fill="rgba(255,255,255,0.7)" id="netNodes"></g>
+  </svg>
+
+  <div class="container">
+    <!-- slide 1 -->
+    <div class="hero-slide active" data-i="0">
+      <div class="hero-eyebrow">GIDR · Notice 01 / 04</div>
+      <h1 class="hero-title">광운대학교 국제개발연구소,<br/>2024년 10월 19일 발대</h1>
+      <div class="hero-sub en">Established October 19, 2024 — under the Industry-Academia Cooperation Foundation, Kwangwoon University.</div>
+      <div class="hero-meta">
+        <div><span class="k">FOUNDED</span><span class="v">2024.10.19</span></div>
+        <div><span class="k">PARENT</span><span class="v">광운대학교 산학협력단</span></div>
+        <div><span class="k">FAIR</span><span class="v">(사)글로벌상호문화연구소</span></div>
+      </div>
+    </div>
+    <!-- slide 2 -->
+    <div class="hero-slide" data-i="1">
+      <div class="hero-eyebrow">KOICA Track Record</div>
+      <h1 class="hero-title">KOICA 30+ Projects,<br/>17개국 한국 ODA 학술 허브</h1>
+      <div class="hero-sub en">Bridging Korean development cooperation expertise with on-the-ground implementation across 17 partner countries.</div>
+      <div class="hero-meta">
+        <div><span class="k">PROJECTS</span><span class="v">30 +</span></div>
+        <div><span class="k">COUNTRIES</span><span class="v">17</span></div>
+        <div><span class="k">CUMULATIVE</span><span class="v">100 억 KRW +</span></div>
+      </div>
+    </div>
+    <!-- slide 3 -->
+    <div class="hero-slide" data-i="2">
+      <div class="hero-eyebrow">Active Bid · Rwanda</div>
+      <h1 class="hero-title">2025 르완다 KOICA 입찰<br/>현재 진행 중</h1>
+      <div class="hero-sub en">KOICA Bid Submission · July 2025 — Digital literacy and ICT vocational training programme, Republic of Rwanda.</div>
+      <div class="hero-meta">
+        <div><span class="k">SUBMITTED</span><span class="v">2025.07</span></div>
+        <div><span class="k">SECTOR</span><span class="v">Digital Literacy / TVET</span></div>
+        <div><span class="k">STATUS</span><span class="v">Under Review</span></div>
+      </div>
+    </div>
+    <!-- slide 4 -->
+    <div class="hero-slide" data-i="3">
+      <div class="hero-eyebrow">Mission Statement</div>
+      <h1 class="hero-title">Bridging Korea<br/>and the World</h1>
+      <div class="hero-sub en">Through Research and Cooperation — 한국어 교육 ODA, ICT 직업훈련, 국제개발 정책 평가의 학술적 기반.</div>
+      <div class="hero-meta">
+        <div><span class="k">PILLAR 01</span><span class="v">Korean ODA</span></div>
+        <div><span class="k">PILLAR 02</span><span class="v">ICT TVET</span></div>
+        <div><span class="k">PILLAR 03</span><span class="v">Policy Evaluation</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-dots">
+    <div class="d active"></div><div class="d"></div><div class="d"></div><div class="d"></div>
+  </div>
+
+  <!-- bottom-right slider controls -->
+  <div class="hero-controls-bottom">
+    <span class="count"><span id="hCur">1</span> / <span class="total">4</span></span>
+    <button id="hPrev" aria-label="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m15 6-6 6 6 6"/></svg></button>
+    <button id="hPlay" aria-label="play/pause"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="7" y="6" width="3" height="12"/><rect x="14" y="6" width="3" height="12"/></svg></button>
+    <button id="hNext" aria-label="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 6 6 6-6 6"/></svg></button>
+  </div>
+  <!-- top-right video toggle -->
+  <div class="hero-controls">
+    <button id="vidToggle" aria-label="video play/pause" title="배경 영상 재생/일시정지">
+      <svg id="vidIcon" viewBox="0 0 24 24" fill="currentColor"><rect x="7" y="6" width="3" height="12"/><rect x="14" y="6" width="3" height="12"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ========== NEWS RIBBON ========== -->
+<div class="news-ribbon">
+  <div class="container">
+    <div class="label"><span class="dot"></span><span>최근 공지</span></div>
+    <div class="latest">
+      <span class="date mono" id="ribDate">2026.04.21</span>
+      <a href="#" id="ribTitle">2026년 르완다 디지털 문해율 사업 평가위원 모집 — 전문가 5인 추천 마감 5월 10일</a>
+    </div>
+    <div class="pager">
+      <button id="ribPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m15 6-6 6 6 6"/></svg></button>
+      <button id="ribNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 6 6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== ABOUT ========== -->
+<section class="about">
+  <div class="container">
+    <div>
+      <h3>광운대학교 국제개발연구소</h3>
+      <div class="h3en en">About GIDR — Global Institute for Development Research</div>
+      <p>2024년 10월 19일, <b>광운대학교 산학협력단</b> 산하 연구소로 발대. 한국 국제개발협력(ODA) 학술 허브로서 정책 평가, 한국어 교육, ICT 직업훈련 분야에서 KOICA 30+개 사업, 17개국 협력 경험을 보유합니다.</p>
+      <p>(사)글로벌상호문화연구소를 페어 기관으로, <b>코리아에듀테크 주식회사</b>와 산학협력 파트너십을 통해 연구–현장–산업의 선순환 모델을 구축합니다.</p>
+      <div class="pillars">
+        <span class="pill">한국어 교육 ODA</span>
+        <span class="pill">ICT 직업훈련 ODA</span>
+        <span class="pill">국제개발 정책 평가</span>
+        <span class="pill gold">EST · 2024</span>
+        <span class="pill red">KOICA 30+</span>
+      </div>
+    </div>
+    <div class="about-banner">
+      <img src="assets/05_group_photo.jpg" alt="광운대학교 국제개발연구소 발대식 단체사진" />
+      <div class="badge">
+        <div class="k">SUPPORTED BY</div>
+        <div class="v">광운대학교 · 코리아에듀테크</div>
+      </div>
+      <div class="caption">
+        <div class="ko">국제개발연구소 발대식 단체사진</div>
+        <div class="en">Inauguration Group Photo · Oct 19, 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TAGS ========== -->
+<section class="tags" id="news">
+  <div class="container">
+    <div class="tags-side">
+      <h3>분야별 소식</h3>
+      <div class="h3en en">News by Track</div>
+      <div class="tag-list" id="tagList">
+        <div class="tag-item active" data-tag="koica">
+          <span><span class="hash">#</span>KOICA</span><span class="arrow">→</span>
+        </div>
+        <div class="tag-item" data-tag="oda">
+          <span><span class="hash">#</span>ODA</span><span class="arrow">→</span>
+        </div>
+        <div class="tag-item" data-tag="global">
+          <span><span class="hash">#</span>GLOBAL</span><span class="arrow">→</span>
+        </div>
+        <div class="tag-item" data-tag="research">
+          <span><span class="hash">#</span>RESEARCH</span><span class="arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tag-items" id="tagItems"><!-- injected --></div>
+  </div>
+</section>
+
+<!-- ========== PROJECT HIGHLIGHTS ========== -->
+<section class="highlights" id="projects">
+  <div class="container">
+    <div class="head">
+      <div>
+        <h3>사업 하이라이트</h3>
+        <div class="h3en en">Project Highlights</div>
+      </div>
+      <div class="hl-controls">
+        <button id="hlPrev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 6-6 6 6 6"/></svg></button>
+        <button id="hlNext"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+      </div>
+    </div>
+
+    <div class="hl-track" id="hlTrack">
+      <article class="hl-card">
+        <div class="thumb">
+          <div class="thumb-art" style="background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(0,0,0,.06) 14px 15px),linear-gradient(135deg,#1e4d8c,#003876);height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:22px;color:#fff">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;opacity:.85">RW · 르완다</div>
+            <div style="font-family:'Inter';font-weight:800;font-size:42px;letter-spacing:-0.04em;line-height:1">Digital<br/>Literacy</div>
+          </div>
+        </div>
+        <div class="body">
+          <div class="country">RWANDA · ACTIVE BID</div>
+          <div class="title">르완다 디지털 문해율 사업</div>
+          <div class="desc">국가 단위 디지털 문해율 향상 프로그램 — 교육부 협력, KOICA 입찰 제출 (2025.07).</div>
+          <div class="footer"><span class="mono">2025 — 2028</span><span class="more">자세히 보기 →</span></div>
+        </div>
+      </article>
+      <article class="hl-card">
+        <div class="thumb">
+          <div class="thumb-art" style="background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(0,0,0,.06) 14px 15px),linear-gradient(135deg,#2a6bb8,#14406f);height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:22px;color:#fff">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;opacity:.85">LK · 스리랑카</div>
+            <div style="font-family:'Inter';font-weight:800;font-size:42px;letter-spacing:-0.04em;line-height:1">PMC<br/>TVET</div>
+          </div>
+        </div>
+        <div class="body">
+          <div class="country">SRI LANKA · PMC</div>
+          <div class="title">스리랑카 기술대학 PMC</div>
+          <div class="desc">기술교육대학 설립 사업 관리 컨설팅 (PMC) — 용접·뿌리산업 커리큘럼 설계 및 운영 자문.</div>
+          <div class="footer"><span class="mono">2023 — 2026</span><span class="more">자세히 보기 →</span></div>
+        </div>
+      </article>
+      <article class="hl-card">
+        <div class="thumb">
+          <div class="thumb-art" style="background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(0,0,0,.06) 14px 15px),linear-gradient(135deg,#c8102e,#7d0c1d);height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:22px;color:#fff">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;opacity:.85">TL · 동티모르</div>
+            <div style="font-family:'Inter';font-weight:800;font-size:42px;letter-spacing:-0.04em;line-height:1">EPS<br/>TOPIK</div>
+          </div>
+        </div>
+        <div class="body">
+          <div class="country">TIMOR-LESTE · EPS</div>
+          <div class="title">동티모르 EPS 한국어 교육</div>
+          <div class="desc">고용허가제(EPS-TOPIK) 한국어 교육 ODA — 한글-테툼어 저작권 (C-2020-014103) 기반 교재 보급.</div>
+          <div class="footer"><span class="mono">2020 — 2025</span><span class="more">자세히 보기 →</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== COOPERATION ========== -->
+<section class="coop" id="cooperation">
+  <img class="coop-bg" src="assets/03_meeting.jpg" alt="" />
+  <div class="coop-veil"></div>
+  <div class="container">
+    <div>
+      <div class="h3en">Cooperation · 협력 네트워크</div>
+      <h3>한국과 세계를<br/>잇는 학술 파트너십</h3>
+      <p>광운대학교 산학협력단을 모기관으로, KOICA·KOTRA·국립국제교육원 등 한국 ODA 주요 기관과 17개 협력국 정부·교육기관을 연결합니다. 산업계 파트너 코리아에듀테크와의 협력으로 정책 연구가 현장 적용으로 이어지는 풀스택 ODA 컨설팅을 제공합니다.</p>
+      <div class="stats">
+        <div class="stat"><div class="num">30<span style="font-size:24px">+</span></div><div class="lab">KOICA PROJECTS</div></div>
+        <div class="stat"><div class="num">17</div><div class="lab">PARTNER COUNTRIES</div></div>
+        <div class="stat"><div class="num">100<span style="font-size:24px">억+</span></div><div class="lab">CUMULATIVE KRW</div></div>
+      </div>
+    </div>
+    <div class="coop-card">
+      <h4>주요 협력 기관</h4>
+      <ul>
+        <li><div><b>광운대학교 산학협력단</b><span>모기관 · Parent Organization</span></div></li>
+        <li><div><b>(사)글로벌상호문화연구소</b><span>페어 기관 · Affiliate</span></div></li>
+        <li><div><b>코리아에듀테크 주식회사</b><span>산학협력 파트너 · Industry Partner</span></div></li>
+        <li><div><b>대중소기업농어업협력재단</b><span>용접 AR 콘텐츠 공동 제작 (2024-03)</span></div></li>
+        <li><div><b>KOICA · 한국국제협력단</b><span>30+ ODA 사업 수행 이력</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SERVICE GRID 4×3 ========== -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="head">
+      <div>
+        <h3>GIDR 서비스</h3>
+        <div class="h3en en">Quick Access · 12 Services</div>
+      </div>
+    </div>
+    <div class="svc-grid" id="svcGrid"><!-- injected --></div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="ct-eyebrow">Office of the Director · 소장실 직통</div>
+
+    <div class="ct-hero">
+      <a class="ct-mailto" href="#" data-ct-open="기타 문의">
+        <div class="lab">Direct Email — 한 통이면 충분합니다</div>
+        <div class="addr"><span class="__cf_email__" data-cfemail="6f0c07040e01082f0418410e0c41041d">[email&#160;protected]</span><span class="arrow">→</span></div>
+        <div class="note"><span class="dot"></span>평일 24시간 내 회신 · 모든 문의는 소장이 직접 검토합니다</div>
+      </a>
+      <div class="ct-meta-stack">
+        <div class="stamp">Verified · KW-GIDR-2024</div>
+        <div class="ts">Last update · 2026.04 · KST (UTC+9)</div>
+      </div>
+    </div>
+
+    <div class="ct-id">
+      <div class="ct-id-name">
+        <span class="ko">강철호</span>
+        <span class="en">KANG, Chul Ho · Ph.D</span>
+        <span class="role">Director</span>
+      </div>
+      <div class="ct-id-titles">
+        광운대학교 국제개발연구소 소장 · 한국용접기술인협회장<br/>
+        코리아에듀테크 대표이사 · 30년+ KOICA ODA 현장 경력
+      </div>
+    </div>
+
+    <div class="ct-channels">
+      <a class="ct-channel" href="#" data-ct-open="산학협력 · MOU">
+        <div class="num"><span>01</span><span class="arr">→</span></div>
+        <div>
+          <div class="ch-title">산학협력 · MOU</div>
+          <div class="ch-en">Industry Partnership</div>
+        </div>
+        <div class="ch-desc">기업·학교·연구기관과의 양해각서 체결 및 공동 사업 제안 검토.</div>
+      </a>
+      <a class="ct-channel" href="#" data-ct-open="공동연구 · 자문위원">
+        <div class="num"><span>02</span><span class="arr">→</span></div>
+        <div>
+          <div class="ch-title">공동연구 · 자문</div>
+          <div class="ch-en">Research Collaboration</div>
+        </div>
+        <div class="ch-desc">KOICA·국제개발 ODA 트랙 공동연구, 평가위원·자문위원 위촉.</div>
+      </a>
+      <a class="ct-channel" href="#" data-ct-open="언론 · 강연 요청">
+        <div class="num"><span>03</span><span class="arr">→</span></div>
+        <div>
+          <div class="ch-title">언론 · 강연</div>
+          <div class="ch-en">Press &amp; Speaking</div>
+        </div>
+        <div class="ch-desc">취재·인터뷰·정책 브리핑 및 외부 강연 요청 (학회·정부·기업).</div>
+      </a>
+    </div>
+
+    <div class="ct-tail">
+      <div class="it"><span class="k">Office</span><span class="v">02·940·5114</span></div>
+      <div class="it"><span class="k">Address</span><span class="v">서울시 노원구 광운로 20 · 월계동 447-1 · 01897</span></div>
+      <div class="it"><span class="k">Hours</span><span class="v">월–금 09:00–18:00 KST</span></div>
+    </div>
+  </div>
+</section>
+<style>@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}</style>
+
+<!-- ========== CONTACT MODAL ========== -->
+<div class="ctmod" id="ctmod" role="dialog" aria-modal="true" aria-labelledby="ctmodTitle" hidden>
+  <div class="ctmod-card">
+    <div class="ctmod-head">
+      <div class="ctmod-eyebrow" id="ctmodEyebrow">Direct to Director · 소장 직통</div>
+      <h3 class="ctmod-title" id="ctmodTitle">소장에게 문의</h3>
+      <div class="ctmod-sub" id="ctmodSub">간단한 정보만 남겨 주세요. 평일 24시간 내에 강철호 소장이 직접 회신드립니다.</div>
+      <button class="ctmod-close" id="ctmodClose" aria-label="닫기">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6l-12 12"/></svg>
+      </button>
+    </div>
+    <form class="ctmod-body" id="ctmodForm" onsubmit="return false;">
+      <div class="ctmod-row">
+        <label class="ctmod-label" for="ctName">이름 <span class="req">*</span></label>
+        <input class="ctmod-input" type="text" id="ctName" name="name" required autocomplete="name" placeholder="홍길동" />
+      </div>
+      <div class="ctmod-row">
+        <label class="ctmod-label" for="ctOrg">소속 / 기관</label>
+        <input class="ctmod-input" type="text" id="ctOrg" name="org" autocomplete="organization" placeholder="예) ○○대학교, KOICA, 코리아에듀테크" />
+      </div>
+      <div class="ctmod-row">
+        <label class="ctmod-label" for="ctEmail">이메일 <span class="req">*</span></label>
+        <input class="ctmod-input" type="email" id="ctEmail" name="email" required autocomplete="email" placeholder="you@example.com" />
+      </div>
+      <div class="ctmod-row">
+        <label class="ctmod-label" for="ctPhone">전화 (선택)</label>
+        <input class="ctmod-input" type="tel" id="ctPhone" name="phone" autocomplete="tel" placeholder="010-0000-0000" />
+      </div>
+      <div class="ctmod-row full">
+        <label class="ctmod-label" for="ctPurpose">문의 유형 <span class="req">*</span></label>
+        <select class="ctmod-select" id="ctPurpose" name="purpose" required>
+          <option value="산학협력 · MOU">산학협력 · MOU</option>
+          <option value="공동연구 · 자문위원">공동연구 · 자문위원</option>
+          <option value="언론 · 강연 요청">언론 · 강연 요청</option>
+          <option value="뉴스레터 구독">뉴스레터 구독</option>
+          <option value="학생 · 진학 상담">학생 · 진학 상담</option>
+          <option value="기타 문의">기타 문의</option>
+        </select>
+      </div>
+      <div class="ctmod-row full">
+        <label class="ctmod-label" for="ctMsg">문의 내용 <span class="req">*</span></label>
+        <textarea class="ctmod-textarea" id="ctMsg" name="message" required placeholder="배경, 요청 사항, 희망 일정 등을 간단히 적어 주세요."></textarea>
+      </div>
+    </form>
+    <div class="ctmod-foot">
+      <div class="ctmod-meta">
+        제출 시 기본 메일 클라이언트가 열리며 <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="84e7ecefe5eae3c4eff3aae5e7aaeff6">[email&#160;protected]</a></b>로 전송됩니다.<br/>
+        직접 메일을 작성하시려면 <a href="/cdn-cgi/l/email-protection#9efdf6f5fff0f9def5e9b0fffdb0f5ec" style="color:var(--blue-dark);font-weight:600">여기를 누르세요</a>.
+      </div>
+      <div class="ctmod-actions">
+        <button type="button" class="ctmod-btn ghost" id="ctmodCancel">취소</button>
+        <button type="button" class="ctmod-btn primary" id="ctmodSubmit">메일 작성<span style="margin-left:2px">→</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SNS ========== -->
+<section class="sns">
+  <div class="container">
+    <a class="sns-item" href="#"><div class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22V12h3l1-4h-4V5.5c0-1.2.4-2 2.1-2H17V0h-3.4C10.7 0 9 1.7 9 4.6V8H6v4h3v10h4z"/></svg></div><div class="lab">Facebook</div></a>
+    <a class="sns-item" href="#"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></div><div class="lab">Instagram</div></a>
+    <a class="sns-item" href="#"><div class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.2-1.6-.9-2.3c-.8-.9-1.7-.9-2.2-1C16.7 3.5 12 3.5 12 3.5s-4.7 0-7.9.2c-.5.1-1.4.1-2.2 1C1.2 5.4 1 7 1 7S.8 8.9.8 10.7v1.6c0 1.9.2 3.7.2 3.7s.2 1.6.9 2.3c.8.9 1.9.9 2.4 1 1.7.2 7.7.2 7.7.2s4.7 0 7.9-.2c.5-.1 1.4-.1 2.2-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.7v-1.6c0-1.8-.2-3.7-.2-3.7zM9.7 14.6V8.4l6.2 3.1-6.2 3.1z"/></svg></div><div class="lab">YouTube</div></a>
+    <a class="sns-item" href="#"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 8v8M8 8h3a2 2 0 0 1 0 4H8M16 8v8M13 12h6"/></svg></div><div class="lab">Blog</div></a>
+    <div class="sns-qr">
+      <div class="qr"></div>
+      <div class="txt"><b>GIDR Newsletter</b>월 1회 발송 · 구독 신청</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="foot-drop">
+    <div class="container">
+      <span class="label">기관 및 바로가기</span>
+      <span class="caret">▼</span>
+    </div>
+  </div>
+  <div class="foot-mid">
+    <div class="container">
+      <a href="#"><b>개인정보처리방침</b></a>
+      <a href="#">영상정보처리기기 운영·관리방침</a>
+      <a href="#">이메일 무단수집거부</a>
+      <a href="#">정보공개</a>
+      <a href="#">위치/교통안내</a>
+    </div>
+  </div>
+  <div class="foot-main">
+    <div class="container">
+      <div class="foot-logo">
+        <svg class="mark" viewBox="0 0 64 64" style="width:48px;height:48px;background:transparent">
+          <circle cx="32" cy="32" r="31" fill="none" stroke="#777a82" stroke-width="0.8"/>
+          <circle cx="32" cy="32" r="28" fill="none" stroke="#cdd0d6" stroke-width="0.6"/>
+          <circle cx="32" cy="32" r="24.5" fill="none" stroke="#777a82" stroke-width="0.5"/>
+          <path id="lgArcTopF" d="M 11 32 A 21 21 0 0 1 53 32" fill="none"/>
+          <text fill="#cdd0d6" font-family="Inter, sans-serif" font-size="4.2" font-weight="600" letter-spacing="2.4">
+            <textPath href="#lgArcTopF" startOffset="50%" text-anchor="middle">KWANGWOON UNIVERSITY</textPath>
+          </text>
+          <path id="lgArcBotF" d="M 13 34 A 19 19 0 0 0 51 34" fill="none"/>
+          <text fill="#9da0a8" font-family="Inter, sans-serif" font-size="3.4" font-weight="500" letter-spacing="1.8">
+            <textPath href="#lgArcBotF" startOffset="50%" text-anchor="middle">EST · 2024 · GIDR</textPath>
+          </text>
+          <g stroke="#9da0a8" stroke-width="0.5" fill="none" opacity="0.55">
+            <ellipse cx="32" cy="30" rx="11" ry="11"/>
+            <ellipse cx="32" cy="30" rx="11" ry="4.2"/>
+            <ellipse cx="32" cy="30" rx="4.2" ry="11"/>
+            <ellipse cx="32" cy="30" rx="8" ry="11"/>
+          </g>
+          <text x="32" y="36.5" fill="#cdd0d6" font-family="Inter, sans-serif" font-size="20" font-weight="800" letter-spacing="-1" text-anchor="middle">G</text>
+          <polygon points="32,5.4 32.7,7.2 34.6,7.2 33.05,8.3 33.6,10.1 32,9 30.4,10.1 30.95,8.3 29.4,7.2 31.3,7.2" fill="#c8102e"/>
+        </svg>
+        <div class="txt">
+          <div class="ko">광운대학교 국제개발연구소</div>
+          <div class="en">Global Institute for Development Research</div>
+        </div>
+      </div>
+      <div class="foot-info">
+        서울시 노원구 광운로 20 (월계동 447-1) 광운대학교 산학협력단 국제개발연구소 (01897)<span class="tel">대표전화 02.940.5114</span><span class="tel">소장 직통 <a href="/cdn-cgi/l/email-protection#d0b3b8bbb1beb790bba7feb1b3febba2"><span class="__cf_email__" data-cfemail="3c5f54575d525b7c574b125d5f12574e">[email&#160;protected]</span></a></span>
+        <div class="copy">COPYRIGHT © KWANGWOON UNIVERSITY GIDR. ALL RIGHTS RESERVED.</div>
+      </div>
+      <div class="foot-cert">
+        <img class="kw" src="assets/kw_logo.png" alt="광운대학교" style="width:54px;height:54px;object-fit:contain;opacity:.85" />
+        <div class="badge">WA<div class="small">웹 접근성<br/>품질인증</div></div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ============ HERO NETWORK PATTERN ============ */
+(function buildNet(){
+  const nodes = [];
+  const N = 38;
+  for(let i=0;i<N;i++){
+    nodes.push({
+      x: Math.random()*1280,
+      y: Math.random()*520,
+      r: 1 + Math.random()*2.4
+    });
+  }
+  const gN = document.getElementById('netNodes');
+  const gL = document.getElementById('netLines');
+  let nodeSvg = '', lineSvg = '';
+  nodes.forEach(n=>{
+    nodeSvg += `<circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${n.r.toFixed(2)}"/>`;
+    if(n.r>2.2) nodeSvg += `<circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${(n.r*3).toFixed(1)}" fill="url(#nodeGlow)"/>`;
+  });
+  for(let i=0;i<nodes.length;i++){
+    for(let j=i+1;j<nodes.length;j++){
+      const dx=nodes[i].x-nodes[j].x, dy=nodes[i].y-nodes[j].y;
+      const d = Math.hypot(dx,dy);
+      if(d<180){
+        lineSvg += `<line x1="${nodes[i].x.toFixed(1)}" y1="${nodes[i].y.toFixed(1)}" x2="${nodes[j].x.toFixed(1)}" y2="${nodes[j].y.toFixed(1)}" opacity="${(1 - d/180).toFixed(2)}"/>`;
+      }
+    }
+  }
+  gN.innerHTML = nodeSvg;
+  gL.innerHTML = lineSvg;
+})();
+
+/* ============ HERO VIDEO TOGGLE ============ */
+(function heroVid(){
+  const v = document.getElementById('heroVid');
+  const btn = document.getElementById('vidToggle');
+  const icon = document.getElementById('vidIcon');
+  if(!v || !btn) return;
+  // ensure autoplay on mobile
+  v.muted = true; v.playsInline = true;
+  const tryPlay = ()=>{ const p = v.play(); if(p && p.catch) p.catch(()=>{}); };
+  tryPlay();
+  let playing = true;
+  btn.onclick = ()=>{
+    if(playing){ v.pause(); icon.innerHTML = '<path d="M8 5v14l11-7z"/>'; }
+    else { tryPlay(); icon.innerHTML = '<rect x="7" y="6" width="3" height="12"/><rect x="14" y="6" width="3" height="12"/>'; }
+    playing = !playing;
+  };
+})();
+
+/* ============ HERO SLIDER ============ */
+(function heroSlider(){
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('.hero-dots .d');
+  const cur = document.getElementById('hCur');
+  const playBtn = document.getElementById('hPlay');
+  let i = 0, playing = true, timer;
+  function show(n){
+    i = (n+slides.length)%slides.length;
+    slides.forEach((s,k)=>s.classList.toggle('active', k===i));
+    dots.forEach((d,k)=>d.classList.toggle('active', k===i));
+    cur.textContent = i+1;
+  }
+  function tick(){ if(playing) show(i+1); }
+  function start(){ stop(); timer = setInterval(tick, 5500); }
+  function stop(){ if(timer) clearInterval(timer); }
+  document.getElementById('hPrev').onclick = ()=>{ show(i-1); start(); };
+  document.getElementById('hNext').onclick = ()=>{ show(i+1); start(); };
+  playBtn.onclick = ()=>{
+    playing = !playing;
+    playBtn.innerHTML = playing
+      ? '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="7" y="6" width="3" height="12"/><rect x="14" y="6" width="3" height="12"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+    if(playing) start(); else stop();
+  };
+  start();
+})();
+
+/* ============ NEWS RIBBON ============ */
+(function ribbon(){
+  const items = [
+    {d:'2026.04.21', t:'2026년 르완다 디지털 문해율 사업 평가위원 모집 — 전문가 5인 추천 마감 5월 10일'},
+    {d:'2026.03.18', t:'국제개발 정책 평가 워크숍 개최 — KOICA 사후평가 방법론 (서울 캠퍼스, 4월 12일)'},
+    {d:'2026.02.05', t:'EDUKOREAS LMS 56개국 운영 보고서 v3.2 발간 — 다운로드 안내'},
+    {d:'2026.01.22', t:'2026년 GIDR 연구과제 공모 — 한국어 교육 ODA 트랙 신설 (총 3억원 규모)'},
+    {d:'2025.12.10', t:'스리랑카 기술대학 PMC 중간평가 보고 — 용접·뿌리산업 커리큘럼 1차 검수 완료'},
+  ];
+  let i = 0;
+  const d = document.getElementById('ribDate'), t = document.getElementById('ribTitle');
+  function show(n){ i=(n+items.length)%items.length; d.textContent=items[i].d; t.textContent=items[i].t; }
+  document.getElementById('ribPrev').onclick=()=>show(i-1);
+  document.getElementById('ribNext').onclick=()=>show(i+1);
+  setInterval(()=>show(i+1), 7000);
+})();
+
+/* ============ TAG SECTION ============ */
+(function tags(){
+  const data = {
+    koica: [
+      {pill:'KOICA', date:'2024.10.19', title:'광운대 국제개발연구소 발대식 개최 · 2024.10.19', img:'assets/01_aerial_hall.jpg'},
+      {pill:'KOICA', date:'2024.10.19', title:'발대식 · 용접기술인협회 창립총회 합동 개최 (광운대 80주년 기념관 4층)', img:'assets/04_event_detail.jpg'},
+      {pill:'KOICA', date:'2026.04', title:'르완다 디지털 문해율 사업', img:'assets/09_rwanda_evaluation.png'},
+      {pill:'KOICA', date:'2026.03', title:'스리랑카 기술대학 PMC — 중간평가 위원회 구성', img:'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=900&q=70'},
+    ],
+    oda: [
+      {pill:'ODA', date:'2024.10.19', title:'광운대 국제개발연구소 발대 · 비전 및 전략 발표', img:'assets/01_aerial_hall.jpg'},
+      {pill:'ODA', date:'2026.04', title:'EPS-TOPIK 한국어 교육 플랫폼 — B2B 보급 신규 런칭', img:'assets/08_eps_platform.png'},
+      {pill:'ODA', date:'2026.03', title:'한국어 교육 ODA 정책 포럼 — 보고서 v2 공개', img:'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=900&q=70'},
+      {pill:'ODA', date:'2025.12', title:'용접 AR 콘텐츠 — 대중소기업농어업협력재단 공동 제작', img:'assets/07_welding.jpg'},
+    ],
+    global: [
+      {pill:'GLOBAL', date:'2024.10.19', title:'발대식 단체사진 — 광운대학교 · 코리아에듀테크 후원', img:'assets/05_group_photo.jpg'},
+      {pill:'GLOBAL', date:'2026.04', title:'(사)글로벌상호문화연구소 공동 학술대회 개최', img:'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=900&q=70'},
+      {pill:'GLOBAL', date:'2026.03', title:'코리아에듀테크 — 산학협력 MOU 체결 1주년 보고', img:'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=70'},
+      {pill:'GLOBAL', date:'2026.02', title:'17개국 협력 파트너 — 2026년 협의체 회의 일정 안내', img:'https://images.unsplash.com/photo-1526378722484-bd91ca387e72?auto=format&fit=crop&w=900&q=70'},
+    ],
+    research: [
+      {pill:'RESEARCH', date:'2026.04', title:'연구진 미팅 — 한국어 교육 ODA 트랙 신진 연구자 공모', img:'assets/03_meeting.jpg'},
+      {pill:'RESEARCH', date:'2026.03', title:'ICT 직업훈련 ODA — VR/AR 콘텐츠 효과성 측정 보고서', img:'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=900&q=70'},
+      {pill:'RESEARCH', date:'2026.02', title:'국제개발 정책 평가 — 사후평가 방법론 워크숍', img:'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=70'},
+      {pill:'RESEARCH', date:'2026.01', title:'전자공학·AI·로봇 자문위원 풀 — 2026 위촉식', img:'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=70'},
+    ],
+  };
+  const wrap = document.getElementById('tagItems');
+  function render(key){
+    const arr = data[key];
+    wrap.innerHTML = arr.map(x => `
+      <a class="news-card" href="#">
+        <div class="thumb">
+          ${x.img
+            ? `<img src="${x.img}" alt="${x.title}" /><div class="thumb-overlay"><span class="thumb-tag-on-img">${x.pill}</span></div>`
+            : `<div class="thumb-art ${x.art||''}">
+                 <span class="thumb-tag mono">${x.pill}</span>
+                 <span class="thumb-mark">G</span>
+               </div>`}
+        </div>
+        <div class="meta"><span class="pill">#${x.pill}</span><span class="mono">${x.date}</span></div>
+        <div class="title">${x.title}</div>
+      </a>
+    `).join('');
+  }
+  render('koica');
+  document.querySelectorAll('.tag-item').forEach(el=>{
+    el.onclick = ()=>{
+      document.querySelectorAll('.tag-item').forEach(t=>t.classList.remove('active'));
+      el.classList.add('active');
+      render(el.dataset.tag);
+    };
+  });
+})();
+
+/* ============ HIGHLIGHT SLIDER (left/right) ============ */
+(function highlights(){
+  const cards = [
+    {country:'RW · 르완다', tag:'RWANDA · ACTIVE BID', title:'르완다 디지털 문해율 사업', desc:'국가 단위 디지털 문해율 향상 프로그램 — 교육부 협력, KOICA 입찰 제출 (2025.07).', date:'2025 — 2028', img:'assets/06_rwanda_student.jpg'},
+    {country:'LK · 스리랑카', tag:'SRI LANKA · PMC', title:'스리랑카 기술대학 PMC', desc:'기술교육대학 설립 사업 관리 컨설팅 (PMC) — 용접·뿌리산업 커리큘럼 설계 및 운영 자문.', date:'2023 — 2026', img:'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=900&q=70'},
+    {country:'TL · 동티모르', tag:'TIMOR-LESTE · EPS', title:'EPS-TOPIK 한국어 교육 플랫폼 개발 보급사업', desc:'기업 맞춤형 B2B 한국어 학습 플랫폼 — 모바일 앱 + 학습 성과 대시보드, 한글-테툼어 저작권 (C-2020-014103) 기반.', date:'2020 — 2025', img:'assets/08_eps_platform.png'},
+    {country:'KH · 캄보디아', tag:'CAMBODIA · TVET', title:'캄보디아 용접 VR/AR 훈련', desc:'대중소기업농어업협력재단 협력 — 용접 AR 콘텐츠 (2024-03 저작권) 현지 적용 시범사업.', date:'2024 — 2027', img:'assets/07_welding.jpg'},
+    {country:'UZ · 우즈베키스탄', tag:'UZBEKISTAN · LMS', title:'EDUKOREAS LMS 보급', desc:'56개국 LMS 시스템 (C-2021-048519) 한국학 교육기관 적용 — 누적 학습자 12만명.', date:'2022 — 진행중', img:'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=900&q=70'},
+    {country:'KE · 케냐', tag:'KENYA · EVALUATION', title:'케냐 KOICA 사업 사후평가', desc:'정책 효과성 평가 방법론 적용 — 교육·보건 분야 5개 사업 통합 평가.', date:'2025', img:'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=900&q=70'},
+  ];
+  const track = document.getElementById('hlTrack');
+  function render(){
+    track.innerHTML = cards.map(c => `
+      <article class="hl-card">
+        <div class="thumb">
+          <img src="${c.img}" alt="${c.title}" style="width:100%;height:100%;object-fit:cover;display:block" />
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,30,68,.15) 0%,rgba(0,30,68,.65) 100%);display:flex;flex-direction:column;justify-content:space-between;padding:20px;color:#fff;pointer-events:none">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;background:rgba(0,30,68,.85);padding:5px 10px;border-radius:2px;align-self:flex-start;font-weight:500">${c.country}</div>
+          </div>
+        </div>
+        <div class="body">
+          <div class="country">${c.tag}</div>
+          <div class="title">${c.title}</div>
+          <div class="desc">${c.desc}</div>
+          <div class="footer"><span class="mono">${c.date}</span><span class="more">자세히 보기 →</span></div>
+        </div>
+      </article>
+    `).join('');
+  }
+  let offset = 0;
+  function shift(dir){
+    offset = Math.max(0, Math.min(cards.length-3, offset+dir));
+    track.style.transform = `translateX(${-offset * (100/3)}%)`;
+  }
+  render();
+  document.getElementById('hlPrev').onclick = ()=>shift(-1);
+  document.getElementById('hlNext').onclick = ()=>shift(1);
+})();
+
+/* ============ SERVICE GRID ============ */
+(function services(){
+  const items = [
+    {n:'01', label:'연구진 소개', en:'Researchers', icon:'<circle cx="12" cy="8" r="3.5"/><path d="M5 21c0-3.5 3-6 7-6s7 2.5 7 6"/>'},
+    {n:'02', label:'KOICA 사업 아카이브', en:'KOICA Archive', icon:'<rect x="4" y="6" width="16" height="14" rx="1"/><path d="M4 10h16M9 14h6M9 17h6"/>'},
+    {n:'03', label:'저작권 자료실', en:'Copyrights', icon:'<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 8h6M9 12h6M9 16h4"/>'},
+    {n:'04', label:'발간물 다운로드', en:'Publications', icon:'<path d="M12 4v12m0 0-4-4m4 4 4-4M5 20h14"/>'},
+    {n:'05', label:'연구과제 공모', en:'Open Calls', icon:'<rect x="4" y="5" width="16" height="15" rx="1"/><path d="M8 3v4M16 3v4M4 10h16"/>'},
+    {n:'06', label:'평가위원 풀', en:'Evaluators', icon:'<circle cx="9" cy="9" r="3"/><circle cx="17" cy="11" r="2.5"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5M14 20c0-2 1.5-3.5 3.5-3.5S21 18 21 20"/>'},
+    {n:'07', label:'산학협력 신청', en:'Industry Partnership', icon:'<path d="M3 21V10l9-6 9 6v11M9 21v-6h6v6"/>', purpose:'산학협력 · MOU'},
+    {n:'08', label:'국제 협력 파트너', en:'Global Partners', icon:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'},
+    {n:'09', label:'강의·세미나', en:'Lectures', icon:'<rect x="3" y="5" width="18" height="12" rx="1"/><path d="M8 21h8M12 17v4"/>'},
+    {n:'10', label:'뉴스레터 구독', en:'Newsletter', icon:'<rect x="3" y="6" width="18" height="13" rx="1"/><path d="m3 7 9 7 9-7"/>', purpose:'뉴스레터 구독'},
+    {n:'11', label:'자주 묻는 질문', en:'FAQ', icon:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-1 .5-1 1.2-1 2"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/>', purpose:'기타 문의'},
+    {n:'12', label:'사이트맵', en:'Sitemap', icon:'<rect x="9" y="3" width="6" height="4"/><rect x="3" y="14" width="6" height="4"/><rect x="15" y="14" width="6" height="4"/><path d="M12 7v3M12 10H6v4M12 10h6v4"/>'},
+  ];
+  document.getElementById('svcGrid').innerHTML = items.map(it => `
+    <a class="svc" href="${it.href||'#'}" ${it.purpose?`data-ct-open="${it.purpose}"`:''}>
+      <div class="svc-top">
+        <span class="svc-num mono">${it.n}</span>
+        <span class="svc-arrow">↗</span>
+      </div>
+      <svg class="svc-icon" viewBox="0 0 24 24">${it.icon}</svg>
+      <div>
+        <div class="svc-label">${it.label}</div>
+        <div class="svc-en">${it.en}</div>
+      </div>
+    </a>
+  `).join('');
+})();
+
+/* ============ CONTACT MODAL ============ */
+(function ctmod(){
+  const modal = document.getElementById('ctmod');
+  const closeBtn = document.getElementById('ctmodClose');
+  const cancelBtn = document.getElementById('ctmodCancel');
+  const submitBtn = document.getElementById('ctmodSubmit');
+  const purposeSel = document.getElementById('ctPurpose');
+  const titleEl = document.getElementById('ctmodTitle');
+  const subEl = document.getElementById('ctmodSub');
+  const eyebrowEl = document.getElementById('ctmodEyebrow');
+
+  const titleMap = {
+    '산학협력 · MOU': {title:'산학협력 · MOU 문의', sub:'기업·기관과의 양해각서 또는 공동 사업을 검토합니다. 협력 의향과 배경을 간단히 적어 주세요.', eb:'Industry Partnership · 산학협력'},
+    '공동연구 · 자문위원': {title:'공동연구 · 자문위원 위촉', sub:'KOICA·국제개발 ODA 트랙 공동연구, 자문위원 위촉 검토를 위한 정보를 남겨 주세요.', eb:'Research Collaboration · 공동연구'},
+    '언론 · 강연 요청': {title:'언론 · 강연 요청', sub:'취재·인터뷰·정책 브리핑 또는 외부 강연 요청은 일정과 매체/주최 정보를 함께 적어 주세요.', eb:'Press & Speaking · 언론·강연'},
+    '뉴스레터 구독': {title:'GIDR 뉴스레터 구독', sub:'월 1회, 사업·연구 동향과 발간물 안내를 받으실 수 있습니다.', eb:'Newsletter · 뉴스레터'},
+    '학생 · 진학 상담': {title:'학생 · 진학 상담', sub:'국제개발연구소 진학·연구 트랙 참여 관련 문의는 관심 분야를 함께 적어 주세요.', eb:'Student · 진학 상담'},
+    '기타 문의': {title:'소장에게 문의', sub:'간단한 정보만 남겨 주세요. 평일 24시간 내에 강철호 소장이 직접 회신드립니다.', eb:'Direct to Director · 소장 직통'},
+  };
+
+  function open(purpose){
+    const key = (purpose && titleMap[purpose]) ? purpose : '기타 문의';
+    purposeSel.value = key;
+    const t = titleMap[key];
+    titleEl.textContent = t.title;
+    subEl.textContent = t.sub;
+    eyebrowEl.textContent = t.eb;
+    modal.removeAttribute('hidden');
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(()=>{ document.getElementById('ctName').focus(); }, 100);
+  }
+  function close(){
+    modal.classList.remove('open');
+    modal.setAttribute('hidden','');
+    document.body.style.overflow = '';
+  }
+  // refresh title/sub when user changes purpose
+  purposeSel.addEventListener('change', ()=>{
+    const t = titleMap[purposeSel.value] || titleMap['기타 문의'];
+    titleEl.textContent = t.title;
+    subEl.textContent = t.sub;
+    eyebrowEl.textContent = t.eb;
+  });
+
+  // delegate clicks: any element with [data-ct-open] opens the modal
+  document.addEventListener('click', (e)=>{
+    const trigger = e.target.closest('[data-ct-open]');
+    if(trigger){
+      e.preventDefault();
+      open(trigger.dataset.ctOpen);
+    }
+  });
+
+  closeBtn.onclick = close;
+  cancelBtn.onclick = close;
+  modal.addEventListener('click', (e)=>{ if(e.target === modal) close(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.classList.contains('open')) close(); });
+
+  // submit -> compose mailto
+  submitBtn.onclick = ()=>{
+    const form = document.getElementById('ctmodForm');
+    if(!form.checkValidity()){ form.reportValidity(); return; }
+    const v = id => document.getElementById(id).value.trim();
+    const name = v('ctName'), org = v('ctOrg'), email = v('ctEmail'), phone = v('ctPhone'), purpose = v('ctPurpose'), msg = v('ctMsg');
+    const subject = `[${purpose}] ${name}${org?` · ${org}`:''} — 광운대 GIDR 문의`;
+    const lines = [
+      '강철호 소장님께,', '',
+      msg, '',
+      '— — — — —',
+      `이름 / Name: ${name}`,
+      `소속 / Org : ${org || '-'}`,
+      `이메일 / Email: ${email}`,
+      `전화 / Phone: ${phone || '-'}`,
+      `유형 / Purpose: ${purpose}`,
+      '',
+      '광운대학교 GIDR 사이트를 통해 발송되었습니다.'
+    ];
+    const href = `mailto:chkang@kw.ac.kr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+    window.location.href = href;
+    setTimeout(close, 250);
+  };
+})();
+
+/* ============ LANGUAGE TOGGLE ============ */
+(function lang(){
+  const btn = document.getElementById('langBtn');
+  const lab = document.getElementById('langLabel');
+  let en = false;
+  const enMap = {
+    '연구소':'About','연구진':'People','연구분야':'Research','사업':'Projects','발간물':'Publications','협력':'Cooperation','문의':'Contact',
+    '최근 공지':'Latest Notice','분야별 소식':'News by Track','사업 하이라이트':'Project Highlights','GIDR 서비스':'GIDR Services',
+    '광운대학교 국제개발연구소':'Global Institute for Development Research',
+  };
+  btn.onclick = ()=>{
+    en = !en;
+    lab.textContent = en ? '한국어' : 'English';
+    document.documentElement.classList.toggle('lang-en', en);
+    // simple toggle: swap select text labels for top-level. Heavy translation out of scope for prototype.
+    btn.style.color = en ? '#fff' : '';
+  };
+})();
+</script>
+
+</body>
+</html>
